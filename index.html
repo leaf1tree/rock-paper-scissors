@@ -4,7 +4,21 @@
         <meta charset="UTF-8">
         <title>Rock, Paper, Scissors</title>
         <script> 
-        
+            function computerPlay() {
+                /*A random number is generated between 0 (inclusive) and 1 (exclusive)
+                The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
+                The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
+
+                IF the number is 0, output "rock"
+                IF the number is 1, output "paper"
+                IF The number is 2, output "scissors"
+                */
+
+                let setComputerChoice = Math.floor(Math.random() * 3)
+
+            }
+
+            computerPlay();
         </script>
     </head>
     <body>
