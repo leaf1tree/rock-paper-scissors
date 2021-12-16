@@ -16,6 +16,18 @@
 
                 let setComputerChoice = Math.floor(Math.random() * 3)
 
+                if (setComputerChoice === 0) { 
+                    console.log ("Rock"); 
+                }
+                else if (setComputerChoice === 1) {
+                    console.log ("Paper"); 
+                }
+                else if (setComputerChoice === 2) { 
+                    console.log ("Scissors");
+                }
+                else {
+                    console.log ("Error, try again"); 
+                }
             }
 
             computerPlay();
