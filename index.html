@@ -29,8 +29,36 @@
                     console.log ("Error, try again"); 
                 }
             }
+            
+            /*Ask for player choice of rock, paper, or scissors.
+            Record player choice into variable
+            Turn player choice into lower case 
+            If player input is either rock, paper, or scissors, return lower case input
+            If player input is any other word, re-prompt
+            */
+            let validSelection = 0; 
+            let playerSelection;
+            
+            while (validSelection === 0) {
+                playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
+                
+                playerSelection = playerSelection.toLowerCase(); 
 
-            computerPlay();
+                if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+                    alert("Please type rock, paper, or scissors.");
+                }
+                else {
+                    validSelection = 1; 
+                }
+            }
+
+            /*Play round of rock paper scissors. Compare player choice with computer choice
+            If player input is rock --> if computer choice is rock, play again. 
+            If player input is rock --> if computer choice is paper, "You Lose! Paper beats rock."
+            If player input is rock --> if computer choice is scissors, "You Win! Rock beats scissors."
+            Etc..*/
+
+            
         </script>
     </head>
     <body>
