@@ -16,30 +16,10 @@
             let compWins = 0; 
 
             for (matchCounter; matchCounter < 5; matchCounter++) {
-                /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
-                The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
-                The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
-
-                IF the number is 0, output "rock"
-                IF the number is 1, output "paper"
-                IF The number is 2, output "scissors"
-                */
+                let validSelection = 0; 
+                let playerSelection = "";
                 let computerSelection = computerPlay(); 
 
-                function computerPlay() {
-                    let setComputerChoice = Math.floor(Math.random() * 3)
-
-                    if (setComputerChoice === 0) { 
-                        return "rock";  
-                    }
-                    else if (setComputerChoice === 1) {
-                        return "paper";  
-                    }
-                    else if (setComputerChoice === 2) { 
-                        return "scissors";  
-                    }
-                }   
-                
                 /*Ask for player choice of rock, paper, or scissors.
                 Record player choice into variable
                 Turn player choice into lower case 
@@ -47,9 +27,6 @@
                 If player input is any other word, re-prompt
                 */
 
-                let validSelection = 0; 
-                let playerSelection = "";
-        
                 while (validSelection === 0) {
                     playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
                     
@@ -63,6 +40,34 @@
                         console.log (`You play ${playerSelection}`); 
                     }
                 }
+                
+                console.log(playRound(playerSelection, computerSelection));
+                console.log(`Your wins: ${playerWins}`); 
+                console.log(`Computer wins: ${compWins}`); 
+                
+                
+                /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
+                The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
+                The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
+
+                IF the number is 0, output "rock"
+                IF the number is 1, output "paper"
+                IF The number is 2, output "scissors"
+                */
+
+                function computerPlay() {
+                    let setComputerChoice = Math.floor(Math.random() * 3)
+
+                    if (setComputerChoice === 0) { 
+                        return "rock";  
+                    }
+                    else if (setComputerChoice === 1) {
+                        return "paper";  
+                    }
+                    else if (setComputerChoice === 2) { 
+                        return "scissors";  
+                    }
+                }  
 
                 /*Play round of rock paper scissors. Compare player choice with computer choice
                 If player input is rock --> if computer choice is rock, play again. 
@@ -112,10 +117,6 @@
                         return "Tie! Both players played scissors.";
                     }
                 }
-
-                console.log(playRound(playerSelection, computerSelection));
-                console.log(`Your wins: ${playerWins}`); 
-                console.log(`Computer wins: ${compWins}`); 
             }
         }
         
