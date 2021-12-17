@@ -4,8 +4,19 @@
         <meta charset="UTF-8">
         <title>Rock, Paper, Scissors</title>
         <script> 
-            function computerPlay() {
-                /*A random number is generated between 0 (inclusive) and 1 (exclusive)
+        /*Create a match counter that counts up to 5 games
+        Create a win counter for user and computer
+        Play round
+        After each win, increase the appropriate win counter by 1 and the match counter by 1
+        When match counter = 5, display player with the most wins
+        */
+        function game() {
+            let matchCounter = 0; 
+            let playerWins = 0; 
+            let compWins = 0; 
+
+            for (matchCounter; matchCounter < 5; matchCounter++) {
+                /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
                 The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
                 The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
 
@@ -13,52 +24,103 @@
                 IF the number is 1, output "paper"
                 IF The number is 2, output "scissors"
                 */
+                let computerSelection = computerPlay(); 
 
-                let setComputerChoice = Math.floor(Math.random() * 3)
+                function computerPlay() {
+                    let setComputerChoice = Math.floor(Math.random() * 3)
 
-                if (setComputerChoice === 0) { 
-                    console.log ("Rock"); 
-                }
-                else if (setComputerChoice === 1) {
-                    console.log ("Paper"); 
-                }
-                else if (setComputerChoice === 2) { 
-                    console.log ("Scissors");
-                }
-                else {
-                    console.log ("Error, try again"); 
-                }
-            }
-            
-            /*Ask for player choice of rock, paper, or scissors.
-            Record player choice into variable
-            Turn player choice into lower case 
-            If player input is either rock, paper, or scissors, return lower case input
-            If player input is any other word, re-prompt
-            */
-            let validSelection = 0; 
-            let playerSelection;
-            
-            while (validSelection === 0) {
-                playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
+                    if (setComputerChoice === 0) { 
+                        return "rock";  
+                    }
+                    else if (setComputerChoice === 1) {
+                        return "paper";  
+                    }
+                    else if (setComputerChoice === 2) { 
+                        return "scissors";  
+                    }
+                }   
                 
-                playerSelection = playerSelection.toLowerCase(); 
+                /*Ask for player choice of rock, paper, or scissors.
+                Record player choice into variable
+                Turn player choice into lower case 
+                If player input is either rock, paper, or scissors, return lower case input
+                If player input is any other word, re-prompt
+                */
 
-                if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-                    alert("Please type rock, paper, or scissors.");
+                let validSelection = 0; 
+                let playerSelection = "";
+        
+                while (validSelection === 0) {
+                    playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
+                    
+                    playerSelection = playerSelection.toLowerCase(); 
+
+                    if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
+                        alert("Please type rock, paper, or scissors.");
+                    }
+                    else {
+                        validSelection = 1; 
+                        console.log (`You play ${playerSelection}`); 
+                    }
                 }
-                else {
-                    validSelection = 1; 
+
+                /*Play round of rock paper scissors. Compare player choice with computer choice
+                If player input is rock --> if computer choice is rock, play again. 
+                If player input is rock --> if computer choice is paper, "You Lose! Paper beats rock."
+                If player input is rock --> if computer choice is scissors, "You Win! Rock beats scissors."
+                Etc..*/
+
+                function playRound (playerSelection, computerSelection) {
+                    
+                    if (playerSelection === "rock" && computerSelection === "rock") {
+                        playerWins++; 
+                        compWins++; 
+                        return "Tie! Both players played rock.";
+                    }
+                    else if (playerSelection === "rock" && computerSelection === "paper") {
+                        compWins++; 
+                        return "You lose! Paper beats rock.";
+                    }
+                    else if (playerSelection === "rock" && computerSelection === "scissors") {
+                        playerWins++; 
+                        return "You win! Rock beats scissors.";
+                    }
+                    else if (playerSelection === "paper" && computerSelection === "rock") {
+                        playerWins++; 
+                        return "You win! Paper beats rock.";
+                    }
+                    else if (playerSelection === "paper" && computerSelection === "paper") {
+                        playerWins++; 
+                        compWins++; 
+                        return "Tie! Both players played paper.";
+                    }
+                    else if (playerSelection === "paper" && computerSelection === "scissors") {
+                        compWins++; 
+                        return "You lose! Scissors beats paper.";
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "rock") {
+                        compWins++; 
+                        return "You lose! Rock beats scissors.";
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "paper") {
+                        playerWins++; 
+                        return "You win! Scissors beats paper.";
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "scissors") {
+                        playerWins++; 
+                        compWins++; 
+                        return "Tie! Both players played scissors.";
+                    }
                 }
+
+                console.log(playRound(playerSelection, computerSelection));
+                console.log(`Your wins: ${playerWins}`); 
+                console.log(`Computer wins: ${compWins}`); 
             }
-
-            /*Play round of rock paper scissors. Compare player choice with computer choice
-            If player input is rock --> if computer choice is rock, play again. 
-            If player input is rock --> if computer choice is paper, "You Lose! Paper beats rock."
-            If player input is rock --> if computer choice is scissors, "You Win! Rock beats scissors."
-            Etc..*/
-
-            
+        }
+        
+        /*Play game*/
+        game(); 
         </script>
     </head>
     <body>
