@@ -17,6 +17,9 @@
         </div>
     </body>
     <script> 
+        /*Play game*/
+        game();
+
         /*Create a match counter that counts up to 5 games
         Create a win counter for user and computer
         Play round
@@ -27,7 +30,6 @@
             let matchCounter = 0; 
             let playerWins = 0; 
             let compWins = 0; 
-            let validSelection = 0; 
             let playerSelection = "";
             let computerSelection = computerPlay();
 
@@ -36,156 +38,122 @@
             const buttons = document.querySelectorAll("button");
             buttons.forEach(button => {button.addEventListener("click", () => {
                 playRound(event.target.id, computerPlay()); 
-                //console.log(event.target.id);
-                //console.log(computerPlay());
                 })
             }); 
+            
+            /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
+            The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
+            The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
 
-           // for (matchCounter; matchCounter < 5; matchCounter++) {
-                 
+            IF the number is 0, output "rock"
+            IF the number is 1, output "paper"
+            IF The number is 2, output "scissors"
+            */
 
-                /*Ask for player choice of rock, paper, or scissors.
-                Record player choice into variable
-                Turn player choice into lower case 
-                If player input is either rock, paper, or scissors, return lower case input
-                If player input is any other word, re-prompt
-                */
+            function computerPlay() {
+                let setComputerChoice = Math.floor(Math.random() * 3)
 
-                /*while (validSelection === 0) {
-                    playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
-                    
-                    playerSelection = playerSelection.toLowerCase(); 
+                if (setComputerChoice === 0) { 
+                    return "rock";  
+                }
+                else if (setComputerChoice === 1) {
+                    return "paper";  
+                }
+                else if (setComputerChoice === 2) { 
+                    return "scissors";  
+                }
+            }  
 
-                    if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-                        alert("Please type rock, paper, or scissors.");
-                    }
-                    else {
-                        validSelection = 1; 
-                        console.log (`You play ${playerSelection}`); 
-                    }
-                }*/
-                
-                //console.log(playRound(playerSelection, computerSelection));
-                
-                
-                /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
-                The random decimal is multiplied by 3, resulting in a number between 0 and 2.99...
-                The random decimal is rounded down to the closest whole number, yielding 0, 1, 2 as possible values 
+            /*Play round of rock paper scissors. Compare player choice with computer choice
+            If player input is rock --> if computer choice is rock, play again. 
+            If player input is rock --> if computer choice is paper, "You Lose! Paper beats rock."
+            If player input is rock --> if computer choice is scissors, "You Win! Rock beats scissors."
+            Etc..*/
 
-                IF the number is 0, output "rock"
-                IF the number is 1, output "paper"
-                IF The number is 2, output "scissors"
-                */
-
-                function computerPlay() {
-                    let setComputerChoice = Math.floor(Math.random() * 3)
-
-                    if (setComputerChoice === 0) { 
-                        return "rock";  
-                    }
-                    else if (setComputerChoice === 1) {
-                        return "paper";  
-                    }
-                    else if (setComputerChoice === 2) { 
-                        return "scissors";  
-                    }
-                }  
-
-                /*Play round of rock paper scissors. Compare player choice with computer choice
-                If player input is rock --> if computer choice is rock, play again. 
-                If player input is rock --> if computer choice is paper, "You Lose! Paper beats rock."
-                If player input is rock --> if computer choice is scissors, "You Win! Rock beats scissors."
-                Etc..*/
-
-                function playRound (playerSelection, computerSelection) {
-                    if (playerWins < 5 && compWins < 5) {
-                        if (playerSelection === "rock" && computerSelection === "rock") {
+            function playRound (playerSelection, computerSelection) {
+                if (playerWins < 5 && compWins < 5) {
+                    if (playerSelection === "rock" && computerSelection === "rock") {
                         playerWins++; 
                         compWins++; 
                         document.getElementById("results").textContent = "Tie! Both players played rock."; 
                         document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
                         document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
                         return;
-                        }
-                        else if (playerSelection === "rock" && computerSelection === "paper") {
-                            compWins++; 
-                            document.getElementById("results").textContent = "You lose! Paper beats rock."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return;
-                        }
-                        else if (playerSelection === "rock" && computerSelection === "scissors") {
-                            playerWins++; 
-                            document.getElementById("results").textContent = "You win! Rock beats scissors."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "paper" && computerSelection === "rock") {
-                            playerWins++; 
-                            document.getElementById("results").textContent = "You win! Paper beats rock."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "paper" && computerSelection === "paper") {
-                            playerWins++; 
-                            compWins++; 
-                            document.getElementById("results").textContent = "Tie! Both players played paper."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "paper" && computerSelection === "scissors") {
-                            compWins++; 
-                            document.getElementById("results").textContent = "You lose! Scissors beats paper."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "scissors" && computerSelection === "rock") {
-                            compWins++; 
-                            document.getElementById("results").textContent = "You lose! Rock beats scissors."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "scissors" && computerSelection === "paper") {
-                            playerWins++; 
-                            document.getElementById("results").textContent = "You win! Scissors beats paper."; 
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
-                        else if (playerSelection === "scissors" && computerSelection === "scissors") {
-                            playerWins++; 
-                            compWins++; 
-                            document.getElementById("results").textContent = "Tie! Both players played scissors.";
-                            document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
-                            document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
-
-                            return ;
-                        }
                     }
-                    else if (playerWins >= 5) {
-                        document.getElementById("results").textContent = "Player wins!"
+                    else if (playerSelection === "rock" && computerSelection === "paper") {
+                        compWins++; 
+                        document.getElementById("results").textContent = "You lose! Paper beats rock."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return;
                     }
-                    else if (compWins >= 5) {
-                        document.getElementById("results").textContent = "Computer wins!"
+                    else if (playerSelection === "rock" && computerSelection === "scissors") {
+                        playerWins++; 
+                        document.getElementById("results").textContent = "You win! Rock beats scissors."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
                     }
-                    
+                    else if (playerSelection === "paper" && computerSelection === "rock") {
+                        playerWins++; 
+                        document.getElementById("results").textContent = "You win! Paper beats rock."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
+                    else if (playerSelection === "paper" && computerSelection === "paper") {
+                        playerWins++; 
+                        compWins++; 
+                        document.getElementById("results").textContent = "Tie! Both players played paper."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
+                    else if (playerSelection === "paper" && computerSelection === "scissors") {
+                        compWins++; 
+                        document.getElementById("results").textContent = "You lose! Scissors beats paper."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "rock") {
+                        compWins++; 
+                        document.getElementById("results").textContent = "You lose! Rock beats scissors."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "paper") {
+                        playerWins++; 
+                        document.getElementById("results").textContent = "You win! Scissors beats paper."; 
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
+                    else if (playerSelection === "scissors" && computerSelection === "scissors") {
+                        playerWins++; 
+                        compWins++; 
+                        document.getElementById("results").textContent = "Tie! Both players played scissors.";
+                        document.getElementById("pscore").textContent = `Your wins: ${playerWins}`;
+                        document.getElementById("cscore").textContent = `Computer wins: ${compWins}`;
+
+                        return ;
+                    }
                 }
-            //}
-        }
-        
-        /*Play game*/
-        game(); 
-        </script>
+                else if (playerWins >= 5) {
+                    document.getElementById("results").textContent = "Player wins!"
+                }
+                else if (compWins >= 5) {
+                    document.getElementById("results").textContent = "Computer wins!"
+                }   
+            }
+        } 
+    </script>
 </html>
