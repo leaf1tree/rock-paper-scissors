@@ -3,7 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>Rock, Paper, Scissors</title>
-        <script> 
+    </head>
+    <body>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+
+        <div class="container">
+            <b>Results</b>
+            <div id="results">
+                
+            </div>
+        </div>
+    </body>
+    <script> 
         /*Create a match counter that counts up to 5 games
         Create a win counter for user and computer
         Play round
@@ -14,11 +27,24 @@
             let matchCounter = 0; 
             let playerWins = 0; 
             let compWins = 0; 
+            let validSelection = 0; 
+            let playerSelection = "";
+            let computerSelection = computerPlay();
 
-            for (matchCounter; matchCounter < 5; matchCounter++) {
-                let validSelection = 0; 
-                let playerSelection = "";
-                let computerSelection = computerPlay(); 
+            /*Add event listener to every button on the page to listen for clicks
+            When clicked, run the playRound function with the player selection being the button clicked*/
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach(button => {button.addEventListener("click", () => {
+                playRound(event.target.id, computerPlay());
+                console.log(`Your wins: ${playerWins}`); 
+                console.log(`Computer wins: ${compWins}`); 
+                //console.log(event.target.id);
+                //console.log(computerPlay());
+                })
+            }); 
+
+            //for (matchCounter; matchCounter < 5; matchCounter++) {
+                 
 
                 /*Ask for player choice of rock, paper, or scissors.
                 Record player choice into variable
@@ -27,7 +53,7 @@
                 If player input is any other word, re-prompt
                 */
 
-                while (validSelection === 0) {
+                /*while (validSelection === 0) {
                     playerSelection = prompt("Rock, Paper, Scissors! Please type your choice of either rock, paper, or scissors: ");
                     
                     playerSelection = playerSelection.toLowerCase(); 
@@ -39,11 +65,9 @@
                         validSelection = 1; 
                         console.log (`You play ${playerSelection}`); 
                     }
-                }
+                }*/
                 
-                console.log(playRound(playerSelection, computerSelection));
-                console.log(`Your wins: ${playerWins}`); 
-                console.log(`Computer wins: ${compWins}`); 
+                //console.log(playRound(playerSelection, computerSelection));
                 
                 
                 /*A random number is generated between 0 (inclusive) and 1 (exclusive) for the computer choice
@@ -76,55 +100,60 @@
                 Etc..*/
 
                 function playRound (playerSelection, computerSelection) {
-                    
+
                     if (playerSelection === "rock" && computerSelection === "rock") {
                         playerWins++; 
                         compWins++; 
-                        return "Tie! Both players played rock.";
+                        document.getElementById("results").textContent = "Tie! Both players played rock."; 
+                        return;
                     }
                     else if (playerSelection === "rock" && computerSelection === "paper") {
                         compWins++; 
-                        return "You lose! Paper beats rock.";
+                        document.getElementById("results").textContent = "You lose! Paper beats rock."; 
+                        return;
                     }
                     else if (playerSelection === "rock" && computerSelection === "scissors") {
                         playerWins++; 
-                        return "You win! Rock beats scissors.";
+                        document.getElementById("results").textContent = "You win! Rock beats scissors."; 
+                        return ;
                     }
                     else if (playerSelection === "paper" && computerSelection === "rock") {
                         playerWins++; 
-                        return "You win! Paper beats rock.";
+                        document.getElementById("results").textContent = "You win! Paper beats rock."; 
+                        return ;
                     }
                     else if (playerSelection === "paper" && computerSelection === "paper") {
                         playerWins++; 
                         compWins++; 
-                        return "Tie! Both players played paper.";
+                        document.getElementById("results").textContent = "Tie! Both players played paper."; 
+                        return ;
                     }
                     else if (playerSelection === "paper" && computerSelection === "scissors") {
                         compWins++; 
-                        return "You lose! Scissors beats paper.";
+                        document.getElementById("results").textContent = "You lose! Scissors beats paper."; 
+                        return ;
                     }
                     else if (playerSelection === "scissors" && computerSelection === "rock") {
                         compWins++; 
-                        return "You lose! Rock beats scissors.";
+                        document.getElementById("results").textContent = "You lose! Rock beats scissors."; 
+                        return ;
                     }
                     else if (playerSelection === "scissors" && computerSelection === "paper") {
                         playerWins++; 
-                        return "You win! Scissors beats paper.";
+                        document.getElementById("results").textContent = "You win! Scissors beats paper."; 
+                        return ;
                     }
                     else if (playerSelection === "scissors" && computerSelection === "scissors") {
                         playerWins++; 
                         compWins++; 
-                        return "Tie! Both players played scissors.";
+                        document.getElementById("results").textContent = "Tie! Both players played scissors."; 
+                        return ;
                     }
                 }
-            }
+            //}
         }
         
         /*Play game*/
         game(); 
         </script>
-    </head>
-    <body>
-
-    </body>
 </html>
